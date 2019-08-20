@@ -1,4 +1,6 @@
-﻿Public Class CalculatorTwo
+﻿
+
+Public Class CalculatorTwo
 
     Public cjCalcTwo As New Calculator
 
@@ -116,12 +118,64 @@
     End Sub
 
     Private Sub BtnEqual_Click(sender As Object, e As EventArgs) Handles btnEqual.Click
+        SetEquals()
+    End Sub
+
+    Private Sub CalculatorTwo_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyUp
+        If (e.KeyCode = 107) Then
+            If (plusCount = 0) Then
+                equation.Text = equation.Text & " + "
+                plusCount += 1
+                e.Handled = True
+            End If
+
+        ElseIf (e.KeyCode = 109) Then
+
+            If ((plusCount = 1) Or (minusCount = 1) Or (multiplyCount = 1) Or (divideCount = 1)) Then
+                equation.Text = equation.Text & "-"
+            ElseIf (minusCount = 0) Then
+                minusCount += 1
+                equation.Text = equation.Text & " - "
+                e.Handled = True
+            End If
+
+        ElseIf (e.KeyCode = 106) Then
+
+            equation.Text = equation.Text & " * "
+            multiplyCount += 1
+            e.Handled = True
+
+        ElseIf (e.KeyCode = 111) Then
+
+            If (divideCount = 0) Then
+                divideCount += 1
+                equation.Text = equation.Text & " / "
+                e.Handled = True
+            End If
+
+        ElseIf (e.KeyCode = 13) Then
+
+            SetEquals()
+            e.Handled = True
+
+        ElseIf (e.KeyCode >= 96 And e.KeyCode <= 105) Then
+
+            equation.Text = equation.Text & e.KeyData.ToString().Replace("NumPad", "")
+            plusCount = 0
+            minusCount = 0
+            multiplyCount = 0
+            divideCount = 0
+        End If
+    End Sub
+
+    Public Sub SetEquals()
         If (plusCount = 0 And minusCount = 0 And multiplyCount = 0 And divideCount = 0) Then
             cjCalcTwo.calculate(equation.Text)
+            cjCalcTwo.getResult()
+            equation.Text = ""
         Else
-            Console.WriteLine("Invalid Equation")
+            MsgBox("Invalid Equation")
         End If
-        'equation.Text = ""
     End Sub
 End Class
 
@@ -129,6 +183,8 @@ Public Class Calculator
 
     Public results(10) As Double
     Public resultIndex As Integer
+    Public value As Stack(Of Double) = New Stack(Of Double)
+    Public operators As Stack(Of String) = New Stack(Of String)
 
     'Add comments here.
     Public Sub calculate(ByVal equation As String)
@@ -136,14 +192,14 @@ Public Class Calculator
 
         Dim eqArr() As String = equation.Split(New Char() {" "c})
 
-        Dim value As Stack(Of String) = New Stack(Of String)
-        Dim operators As Stack(Of String) = New Stack(Of String)
-
         'Multiplication and division have a higher ranking than addition and subtraction
+        For Each item As String In eqArr
+            Console.Write(item + ",")
+        Next
+        Console.WriteLine()
+
 
         For i = 0 To (eqArr.Length() - 1)
-
-            Console.WriteLine(i)
             If (eqArr(i).Equals("+") Or eqArr(i).Equals("-") Or eqArr(i).Equals("*") Or eqArr(i).Equals("/")) Then
 
                 If (operators.Count > 0) Then
@@ -152,22 +208,31 @@ Public Class Calculator
 
                         Dim numOper As String = operators.Pop()
                         Dim answer As Double
-                        Dim rightNum As Double = Double.Parse(value.Pop())
-                        Dim leftNum As Double = Double.Parse(value.Pop())
+                        Dim rightNum As Double = value.Pop()
+                        Dim leftNum As Double = value.Pop()
 
                         If (numOper.Equals("*")) Then
                             answer = leftNum * rightNum
                         ElseIf (numOper.Equals("/")) Then
-                            answer = leftNum / rightNum
+                            If (rightNum = 0) Then
+                                MsgBox("Cannot Divide By Zero")
+                                Exit Sub
+                            Else
+                                answer = leftNum / rightNum
+                            End If
                         End If
 
+                        Console.WriteLine(answer)
                         value.Push(answer)
+
                     End If
+
                 End If
                 operators.Push(eqArr(i))
 
             Else
-                value.Push(eqArr(i))
+                Console.WriteLine("Did we push a value?")
+                value.Push(Double.Parse(eqArr(i)))
             End If
 
 
@@ -175,16 +240,21 @@ Public Class Calculator
 
         While (operators.Count > 0)
 
-            Console.WriteLine("Do we end up here at all?")
             Dim numOper As String = operators.Pop()
             Dim answer As Double
-            Dim rightNum As Double = Double.Parse(value.Pop())
-            Dim leftNum As Double = Double.Parse(value.Pop())
-
+            Dim rightNum As Double = value.Pop()
+            Dim leftNum As Double = value.Pop()
+            Console.WriteLine(leftNum.ToString + numOper + rightNum.ToString)
             If (numOper.Equals("*")) Then
                 answer = leftNum * rightNum
             ElseIf (numOper.Equals("/")) Then
-                answer = leftNum / rightNum
+                If (rightNum = 0) Then
+                    MsgBox("Cannot Divide By Zero")
+                    Exit Sub
+                Else
+                    answer = leftNum / rightNum
+                End If
+
             ElseIf (numOper.Equals("+")) Then
                 answer = leftNum + rightNum
             ElseIf (numOper.Equals("-")) Then
@@ -195,15 +265,15 @@ Public Class Calculator
 
         End While
 
-        Console.WriteLine(value.Peek().ToString())
-
     End Sub
 
-    Public Function getResult()
-        Return ""
+    Public Function getResult() As String
+        Dim total As String = value.Pop().ToString
+        Console.WriteLine(total)
+        Return total
     End Function
 
-    Public Function getPreviousResult(ByVal index As Integer)
+    Public Function getPreviousResult(ByVal index As Integer) As String
         Return ""
     End Function
 

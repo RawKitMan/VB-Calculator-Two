@@ -22,7 +22,6 @@ Partial Class CalculatorTwo
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.equation = New System.Windows.Forms.RichTextBox()
         Me.btnOne = New System.Windows.Forms.Button()
         Me.btnTwo = New System.Windows.Forms.Button()
         Me.btnThree = New System.Windows.Forms.Button()
@@ -38,15 +37,12 @@ Partial Class CalculatorTwo
         Me.btnMultiply = New System.Windows.Forms.Button()
         Me.btnDivide = New System.Windows.Forms.Button()
         Me.btnEqual = New System.Windows.Forms.Button()
+        Me.equation = New System.Windows.Forms.Label()
+        Me.btnNegPos = New System.Windows.Forms.Button()
+        Me.btnDecimal = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
-        '
-        'equation
-        '
-        Me.equation.Location = New System.Drawing.Point(12, 48)
-        Me.equation.Name = "equation"
-        Me.equation.Size = New System.Drawing.Size(380, 88)
-        Me.equation.TabIndex = 0
-        Me.equation.Text = ""
         '
         'btnOne
         '
@@ -183,11 +179,60 @@ Partial Class CalculatorTwo
         Me.btnEqual.Text = "="
         Me.btnEqual.UseVisualStyleBackColor = True
         '
+        'equation
+        '
+        Me.equation.AutoSize = True
+        Me.equation.Location = New System.Drawing.Point(33, 89)
+        Me.equation.Name = "equation"
+        Me.equation.Size = New System.Drawing.Size(0, 13)
+        Me.equation.TabIndex = 16
+        '
+        'btnNegPos
+        '
+        Me.btnNegPos.Location = New System.Drawing.Point(36, 299)
+        Me.btnNegPos.Name = "btnNegPos"
+        Me.btnNegPos.Size = New System.Drawing.Size(75, 23)
+        Me.btnNegPos.TabIndex = 17
+        Me.btnNegPos.Text = "+/-"
+        Me.btnNegPos.UseVisualStyleBackColor = True
+        '
+        'btnDecimal
+        '
+        Me.btnDecimal.Location = New System.Drawing.Point(199, 299)
+        Me.btnDecimal.Name = "btnDecimal"
+        Me.btnDecimal.Size = New System.Drawing.Size(75, 23)
+        Me.btnDecimal.TabIndex = 18
+        Me.btnDecimal.Text = "."
+        Me.btnDecimal.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(36, 347)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 19
+        Me.Label1.Text = "Label1"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(234, 346)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(39, 13)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "Label2"
+        '
         'CalculatorTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 471)
+        Me.ClientSize = New System.Drawing.Size(415, 540)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.btnDecimal)
+        Me.Controls.Add(Me.btnNegPos)
+        Me.Controls.Add(Me.equation)
         Me.Controls.Add(Me.btnEqual)
         Me.Controls.Add(Me.btnDivide)
         Me.Controls.Add(Me.btnMultiply)
@@ -203,14 +248,13 @@ Partial Class CalculatorTwo
         Me.Controls.Add(Me.btnThree)
         Me.Controls.Add(Me.btnTwo)
         Me.Controls.Add(Me.btnOne)
-        Me.Controls.Add(Me.equation)
+        Me.KeyPreview = True
         Me.Name = "CalculatorTwo"
         Me.Text = "Calculator 2"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents equation As RichTextBox
     Friend WithEvents btnOne As Button
     Friend WithEvents btnTwo As Button
     Friend WithEvents btnThree As Button
@@ -226,4 +270,9 @@ Partial Class CalculatorTwo
     Friend WithEvents btnMultiply As Button
     Friend WithEvents btnDivide As Button
     Friend WithEvents btnEqual As Button
+    Friend WithEvents equation As Label
+    Friend WithEvents btnNegPos As Button
+    Friend WithEvents btnDecimal As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class
