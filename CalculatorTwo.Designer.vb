@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CalculatorTwo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class CalculatorTwo
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnOne = New System.Windows.Forms.Button()
         Me.btnTwo = New System.Windows.Forms.Button()
@@ -40,8 +40,11 @@ Partial Class CalculatorTwo
         Me.equation = New System.Windows.Forms.Label()
         Me.btnNegPos = New System.Windows.Forms.Button()
         Me.btnDecimal = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.resultLabel = New System.Windows.Forms.Label()
+        Me.prevResultsLabel = New System.Windows.Forms.Label()
+        Me.result = New System.Windows.Forms.Label()
+        Me.prevResult = New System.Windows.Forms.Label()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnOne
@@ -136,7 +139,7 @@ Partial Class CalculatorTwo
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(328, 176)
+        Me.btnAdd.Location = New System.Drawing.Point(313, 187)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnAdd.TabIndex = 11
@@ -145,7 +148,7 @@ Partial Class CalculatorTwo
         '
         'btnSubtract
         '
-        Me.btnSubtract.Location = New System.Drawing.Point(328, 205)
+        Me.btnSubtract.Location = New System.Drawing.Point(313, 217)
         Me.btnSubtract.Name = "btnSubtract"
         Me.btnSubtract.Size = New System.Drawing.Size(75, 23)
         Me.btnSubtract.TabIndex = 12
@@ -154,7 +157,7 @@ Partial Class CalculatorTwo
         '
         'btnMultiply
         '
-        Me.btnMultiply.Location = New System.Drawing.Point(328, 234)
+        Me.btnMultiply.Location = New System.Drawing.Point(313, 246)
         Me.btnMultiply.Name = "btnMultiply"
         Me.btnMultiply.Size = New System.Drawing.Size(75, 23)
         Me.btnMultiply.TabIndex = 13
@@ -163,7 +166,7 @@ Partial Class CalculatorTwo
         '
         'btnDivide
         '
-        Me.btnDivide.Location = New System.Drawing.Point(328, 263)
+        Me.btnDivide.Location = New System.Drawing.Point(313, 270)
         Me.btnDivide.Name = "btnDivide"
         Me.btnDivide.Size = New System.Drawing.Size(75, 23)
         Me.btnDivide.TabIndex = 14
@@ -172,7 +175,7 @@ Partial Class CalculatorTwo
         '
         'btnEqual
         '
-        Me.btnEqual.Location = New System.Drawing.Point(328, 293)
+        Me.btnEqual.Location = New System.Drawing.Point(313, 299)
         Me.btnEqual.Name = "btnEqual"
         Me.btnEqual.Size = New System.Drawing.Size(75, 23)
         Me.btnEqual.TabIndex = 15
@@ -182,9 +185,12 @@ Partial Class CalculatorTwo
         'equation
         '
         Me.equation.AutoSize = True
-        Me.equation.Location = New System.Drawing.Point(33, 89)
+        Me.equation.BackColor = System.Drawing.SystemColors.Control
+        Me.equation.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.equation.ForeColor = System.Drawing.Color.Black
+        Me.equation.Location = New System.Drawing.Point(53, 60)
         Me.equation.Name = "equation"
-        Me.equation.Size = New System.Drawing.Size(0, 13)
+        Me.equation.Size = New System.Drawing.Size(0, 20)
         Me.equation.TabIndex = 16
         '
         'btnNegPos
@@ -205,31 +211,63 @@ Partial Class CalculatorTwo
         Me.btnDecimal.Text = "."
         Me.btnDecimal.UseVisualStyleBackColor = True
         '
-        'Label1
+        'resultLabel
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(36, 347)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 13)
-        Me.Label1.TabIndex = 19
-        Me.Label1.Text = "Label1"
+        Me.resultLabel.AutoSize = True
+        Me.resultLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.resultLabel.Location = New System.Drawing.Point(241, 355)
+        Me.resultLabel.Name = "resultLabel"
+        Me.resultLabel.Size = New System.Drawing.Size(46, 16)
+        Me.resultLabel.TabIndex = 19
+        Me.resultLabel.Text = "Result"
         '
-        'Label2
+        'prevResultsLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(234, 346)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 13)
-        Me.Label2.TabIndex = 20
-        Me.Label2.Text = "Label2"
+        Me.prevResultsLabel.AutoSize = True
+        Me.prevResultsLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.prevResultsLabel.Location = New System.Drawing.Point(213, 436)
+        Me.prevResultsLabel.Name = "prevResultsLabel"
+        Me.prevResultsLabel.Size = New System.Drawing.Size(102, 16)
+        Me.prevResultsLabel.TabIndex = 20
+        Me.prevResultsLabel.Text = "Previous Result"
+        '
+        'result
+        '
+        Me.result.AutoSize = True
+        Me.result.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.result.Location = New System.Drawing.Point(82, 390)
+        Me.result.Name = "result"
+        Me.result.Size = New System.Drawing.Size(0, 16)
+        Me.result.TabIndex = 21
+        '
+        'prevResult
+        '
+        Me.prevResult.AutoSize = True
+        Me.prevResult.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.prevResult.Location = New System.Drawing.Point(82, 477)
+        Me.prevResult.Name = "prevResult"
+        Me.prevResult.Size = New System.Drawing.Size(0, 16)
+        Me.prevResult.TabIndex = 22
+        '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(313, 158)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnClear.TabIndex = 23
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = True
         '
         'CalculatorTwo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(415, 540)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
+        Me.ClientSize = New System.Drawing.Size(563, 540)
+        Me.Controls.Add(Me.btnClear)
+        Me.Controls.Add(Me.prevResult)
+        Me.Controls.Add(Me.result)
+        Me.Controls.Add(Me.prevResultsLabel)
+        Me.Controls.Add(Me.resultLabel)
         Me.Controls.Add(Me.btnDecimal)
         Me.Controls.Add(Me.btnNegPos)
         Me.Controls.Add(Me.equation)
@@ -273,6 +311,9 @@ Partial Class CalculatorTwo
     Friend WithEvents equation As Label
     Friend WithEvents btnNegPos As Button
     Friend WithEvents btnDecimal As Button
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents resultLabel As Label
+    Friend WithEvents prevResultsLabel As Label
+    Friend WithEvents result As Label
+    Friend WithEvents prevResult As Label
+    Friend WithEvents btnClear As Button
 End Class

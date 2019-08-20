@@ -8,85 +8,75 @@ Public Class CalculatorTwo
     Public minusCount As Integer = 0
     Public multiplyCount As Integer = 0
     Public divideCount As Integer = 0
+    Public prevResultIndex As Integer = 0
 
     Private Sub BtnOne_Click(sender As Object, e As EventArgs) Handles btnOne.Click
         equation.Text = equation.Text & btnOne.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnTwo_Click(sender As Object, e As EventArgs) Handles btnTwo.Click
         equation.Text = equation.Text & btnTwo.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnThree_Click(sender As Object, e As EventArgs) Handles btnThree.Click
         equation.Text = equation.Text & btnThree.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnFour_Click(sender As Object, e As EventArgs) Handles btnFour.Click
         equation.Text = equation.Text & btnFour.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnFive_Click(sender As Object, e As EventArgs) Handles btnFive.Click
         equation.Text = equation.Text & btnFive.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnSix_Click(sender As Object, e As EventArgs) Handles btnSix.Click
         equation.Text = equation.Text & btnSix.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnSeven_Click(sender As Object, e As EventArgs) Handles btnSeven.Click
         equation.Text = equation.Text & btnSeven.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnEight_Click(sender As Object, e As EventArgs) Handles btnEight.Click
         equation.Text = equation.Text & btnEight.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnNine_Click(sender As Object, e As EventArgs) Handles btnNine.Click
         equation.Text = equation.Text & btnNine.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
     End Sub
 
     Private Sub BtnZero_Click(sender As Object, e As EventArgs) Handles btnZero.Click
         equation.Text = equation.Text & btnZero.Text
-        plusCount = 0
-        minusCount = 0
-        multiplyCount = 0
-        divideCount = 0
+        ClearOperators()
+    End Sub
+
+    Private Sub BtnNegPos_Click(sender As Object, e As EventArgs) Handles btnNegPos.Click
+        AddRemoveNeg()
+    End Sub
+
+    Private Sub BtnDecimal_Click(sender As Object, e As EventArgs) Handles btnDecimal.Click
+
+        If (plusCount = 1 Or minusCount = 1 Or multiplyCount = 1 Or divideCount = 1) Then
+            equation.Text = equation.Text + "0."
+            ClearOperators()
+        Else
+            equation.Text = equation.Text + "."
+        End If
+    End Sub
+
+    Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        equation.Text = ""
+        ClearOperators()
     End Sub
 
     Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -131,12 +121,18 @@ Public Class CalculatorTwo
 
         ElseIf (e.KeyCode = 109) Then
 
-            If ((plusCount = 1) Or (minusCount = 1) Or (multiplyCount = 1) Or (divideCount = 1)) Then
-                equation.Text = equation.Text & "-"
-            ElseIf (minusCount = 0) Then
+            Dim numberCheck As Char = "-"
+
+            If (equation.Text.Length = 0) Then
+                AddRemoveNeg()
+            ElseIf (equation.Text.Length = 1 And equation.Text(0).Equals(numberCheck)) Then
+                AddRemoveNeg()
+
+            ElseIf (minusCount = 0 And equation.Text.Length > 2) Then
                 minusCount += 1
                 equation.Text = equation.Text & " - "
                 e.Handled = True
+
             End If
 
         ElseIf (e.KeyCode = 106) Then
@@ -171,18 +167,65 @@ Public Class CalculatorTwo
     Public Sub SetEquals()
         If (plusCount = 0 And minusCount = 0 And multiplyCount = 0 And divideCount = 0) Then
             cjCalcTwo.calculate(equation.Text)
-            cjCalcTwo.getResult()
+
+            Dim totalAnswer As Double = cjCalcTwo.getResult()
+            If ((totalAnswer < Double.MinValue) Or (totalAnswer > Double.MaxValue)) Then
+                MsgBox("Answer falls out of range")
+                Exit Sub
+            End If
+            result.Text = equation.Text + " = " + totalAnswer.ToString()
+
+            If (prevResultIndex = 10) Then
+                prevResultIndex = 0
+            End If
+
+            prevResult.Text = cjCalcTwo.getPreviousResult(prevResultIndex)
+            prevResultIndex += 1
             equation.Text = ""
+            ClearOperators()
         Else
             MsgBox("Invalid Equation")
         End If
     End Sub
+
+    Public Sub AddRemoveNeg()
+
+        Dim charCheck As Char = "-"
+        If (equation.Text.Length > 0) Then
+            Dim symbol As Char = equation.Text(equation.Text.Length - 1)
+            If (equation.Text(0).Equals(charCheck) And equation.Text.Length = 1) Then
+                equation.Text = ""
+            ElseIf ((plusCount = 1) Or (minusCount = 1) Or (multiplyCount = 1) Or (divideCount = 1)) Then
+                If (symbol.Equals(charCheck)) Then
+                    Dim substring As String = equation.Text.Substring(0, equation.Text.Length() - 1)
+                    equation.Text = substring
+
+                Else
+                    equation.Text = equation.Text & "-"
+                End If
+
+            End If
+        Else
+
+            equation.Text = "-"
+
+        End If
+    End Sub
+
+    Public Sub ClearOperators()
+        plusCount = 0
+        minusCount = 0
+        multiplyCount = 0
+        divideCount = 0
+    End Sub
+
+
 End Class
 
 Public Class Calculator
 
     Public results(10) As Double
-    Public resultIndex As Integer
+    Public resultIndex As Integer = 0
     Public value As Stack(Of Double) = New Stack(Of Double)
     Public operators As Stack(Of String) = New Stack(Of String)
 
@@ -267,14 +310,28 @@ Public Class Calculator
 
     End Sub
 
-    Public Function getResult() As String
-        Dim total As String = value.Pop().ToString
-        Console.WriteLine(total)
+    Public Function getResult()
+
+        Dim total As Double = value.Pop()
+
+        resultIndex += 1
+
+        If (resultIndex = 10) Then
+            resultIndex = 0
+        End If
+
+        results(resultIndex) = total
         Return total
+
     End Function
 
-    Public Function getPreviousResult(ByVal index As Integer) As String
-        Return ""
+    Public Function getPreviousResult(ByVal index As Integer)
+        If (results.Length = 1) Then
+            Return "No Previous Results"
+        Else
+            Return results(index).ToString()
+        End If
+
     End Function
 
 End Class
