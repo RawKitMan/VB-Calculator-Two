@@ -205,7 +205,7 @@
             ElseIf ((Not (cjCalcTwo.results(0).Equals(""))) And (cjCalcTwo.results(1) Is Nothing)) Then
                 prevResult.Text = "No Previous Results"
             Else
-                prevResult.Text = cjCalcTwo.getPreviousResult(prevResultIndex - 1)
+                prevResult.Text = cjCalcTwo.getPreviousResult(prevResultIndex - 2)
             End If
 
             equation.Text = ""
@@ -374,10 +374,7 @@ Public Class Calculator
 
     'Returns a previous result to the form based on the designated index.
     Public Function getPreviousResult(ByVal index As Integer)
-        For Each item As String In results
-            Console.Write(item + ",")
-        Next
-        Console.WriteLine("")
+
         Return results(index)
 
     End Function
