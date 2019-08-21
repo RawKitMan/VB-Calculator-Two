@@ -246,8 +246,9 @@ Partial Class CalculatorTwo
         Me.prevResult.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.prevResult.Location = New System.Drawing.Point(82, 477)
         Me.prevResult.Name = "prevResult"
-        Me.prevResult.Size = New System.Drawing.Size(0, 16)
+        Me.prevResult.Size = New System.Drawing.Size(130, 16)
         Me.prevResult.TabIndex = 22
+        Me.prevResult.Text = "No Previous Results"
         '
         'btnClear
         '
