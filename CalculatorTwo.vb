@@ -198,14 +198,23 @@
             End If
             result.Text = equation.Text + " = " + totalAnswer.ToString()
 
-            prevResultIndex += 1
-            If (prevResultIndex = 10) Then
-                prevResult.Text = cjCalcTwo.getPreviousResult(9)
-                prevResultIndex = 0
-            ElseIf ((Not (cjCalcTwo.results(0).Equals(""))) And (cjCalcTwo.results(1) Is Nothing)) Then
+            Console.WriteLine(prevResultIndex)
+
+            If ((Not (cjCalcTwo.results(0).Equals(""))) And (cjCalcTwo.results(1) Is Nothing)) Then
                 prevResult.Text = "No Previous Results"
             Else
-                prevResult.Text = cjCalcTwo.getPreviousResult(prevResultIndex - 2)
+                If (prevResultIndex = 0) Then
+                    prevResult.Text = cjCalcTwo.getPreviousResult(9)
+                Else
+                    prevResult.Text = cjCalcTwo.getPreviousResult(prevResultIndex - 1)
+                End If
+
+            End If
+
+            prevResultIndex += 1
+
+            If (prevResultIndex = 10) Then
+                prevResultIndex = 0
             End If
 
             equation.Text = ""
